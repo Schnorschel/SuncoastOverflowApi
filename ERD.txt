@@ -1,0 +1,52 @@
+Question
+---------
+Id: int
+QuestionTitle: string
+QuestionText: string
+VoteValue: int = 0
+CreatedDateTime: DateTime = DateTime.UtcNow
+LastModifiedDateTime: DateTime = DateTime.UtcNow
+
+Answer
+-------
+Id: int
+QuestionId: int
+AnswerText: string
+VoteValue: int = 0
+CreatedDateTime: DateTime = DateTime.UtcNow
+LastModifiedDateTime: DateTime = DateTime.UtcNow
+
+Endpoints
+---------
+Question
+--------
+GET
+api/Question - retrieve all questions (without answers)
+api/Question/<id> - retrieve question with Id <id> and all its answers
+
+POST
+api/Question - create/add new question
+
+PUT
+api/Question/<id> - update question with Id <id>
+
+DELETE
+(api/Question/<id> - delete question with Id <id> and delete all its answers)
+
+Answer
+------
+GET
+api/Answer/<id> - retrieve answer with Id <id>
+
+POST
+api/Answer - create/add new question
+
+PUT
+api/Answer/<id> - update answer with Id <id>
+
+DELETE
+(api/Answer/<id> - delete answer with Id <id>)
+
+Search
+------
+api/Search/<SearchTerm> - retrieve all questions with <SearchTerm> in their QuestionText (without answers)

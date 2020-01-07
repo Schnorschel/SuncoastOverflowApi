@@ -20,7 +20,7 @@ namespace SuncoastOverflowApi.Models
       if (!optionsBuilder.IsConfigured)
       {
         var envConn = Environment.GetEnvironmentVariable("DATABASE_URL");
-#warning Update this connection string to point to your own database.
+        // #warning Update this connection string to point to your own database.
         var conn = "server=localhost;database=SuncoastOverflowApiDatabase;User Id=postgres";
         if (envConn != null)
         {
