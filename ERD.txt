@@ -16,19 +16,64 @@ VoteValue: int = 0
 CreatedDateTime: DateTime = DateTime.UtcNow
 LastModifiedDateTime: DateTime = DateTime.UtcNow
 
-Endpoints
----------
+Endpoints and ModelView definitions
+-----------------------------------
 Question
 --------
 GET
-api/Question - retrieve all questions (without answers)
-api/Question/<id> - retrieve question with Id <id> and all its answers
+  - api/Question - retrieve all questions (without answers)
+    Question
+    --------
+    public int Id { get; set; }
+    public string QuestionTitle { get; set; }
+    public string QuestionText { get; set; }
+    public int VoteValue { get; set; } = 0;
+    public DateTime CreatedDateTime { get; set; } = DateTime.UtcNow;
+    public DateTime LastModifiedDateTime { get; set; } = DateTime.UtcNow;
+
+
+  - api/Question/<id> - retrieve question with Id <id> and all its answers
+    Question
+    --------
+    public int Id { get; set; }
+    public string QuestionTitle { get; set; }
+    public string QuestionText { get; set; }
+    public int VoteValue { get; set; } = 0;
+    public DateTime CreatedDateTime { get; set; } = DateTime.UtcNow;
+    public DateTime LastModifiedDateTime { get; set; } = DateTime.UtcNow;
+
+    public List<Answer> Answers { get; set; } = new List<Answer>();
+
+    Answer
+    ------
+    public int Id { get; set; }
+    public int QuestionId { get; set; }
+    public string AnswerText { get; set; }
+    public int VoteValue { get; set; } = 0;
+    public DateTime CreatedDateTime { get; set; } = DateTime.UtcNow;
+    public DateTime LastModifiedDateTime { get; set; } = DateTime.UtcNow;
 
 POST
-api/Question - create/add new question
+  - api/Question - create/add new question
+    Question
+    --------
+    public int Id { get; set; }
+    public string QuestionTitle { get; set; }
+    public string QuestionText { get; set; }
+    public int VoteValue { get; set; } = 0;
+    public DateTime CreatedDateTime { get; set; } = DateTime.UtcNow;
+    public DateTime LastModifiedDateTime { get; set; } = DateTime.UtcNow;
 
 PUT
-api/Question/<id> - update question with Id <id>
+  - api/Question/<id> - update question with Id <id>
+    Question
+    --------
+    public int Id { get; set; }
+    public string QuestionTitle { get; set; }
+    public string QuestionText { get; set; }
+    public int VoteValue { get; set; } = 0;
+    public DateTime CreatedDateTime { get; set; } = DateTime.UtcNow;
+    public DateTime LastModifiedDateTime { get; set; } = DateTime.UtcNow;
 
 DELETE
 (api/Question/<id> - delete question with Id <id> and delete all its answers)
@@ -36,17 +81,60 @@ DELETE
 Answer
 ------
 GET
-api/Answer/<id> - retrieve answer with Id <id>
+  - api/Answer/<id> - retrieve answer with Id <id>
+    Answer
+    ------
+    public int Id { get; set; }
+    public int QuestionId { get; set; }
+    public string AnswerText { get; set; }
+    public int VoteValue { get; set; } = 0;
+    public DateTime CreatedDateTime { get; set; } = DateTime.UtcNow;
+    public DateTime LastModifiedDateTime { get; set; } = DateTime.UtcNow;
 
 POST
-api/Answer - create/add new question
+  - api/Answer - create/add new answer
+    Answer
+    ------
+    public int Id { get; set; }
+    public int QuestionId { get; set; }
+    public string AnswerText { get; set; }
+    public int VoteValue { get; set; } = 0;
+    public DateTime CreatedDateTime { get; set; } = DateTime.UtcNow;
+    public DateTime LastModifiedDateTime { get; set; } = DateTime.UtcNow;
 
 PUT
-api/Answer/<id> - update answer with Id <id>
+  - api/Answer/<id> - update answer with Id <id>
+    Answer
+    ------
+    public int Id { get; set; }
+    public int QuestionId { get; set; }
+    public string AnswerText { get; set; }
+    public int VoteValue { get; set; } = 0;
+    public DateTime CreatedDateTime { get; set; } = DateTime.UtcNow;
+    public DateTime LastModifiedDateTime { get; set; } = DateTime.UtcNow;
 
 DELETE
-(api/Answer/<id> - delete answer with Id <id>)
+  - (api/Answer/<id> - delete answer with Id <id>)
 
 Search
 ------
-api/Search/<SearchTerm> - retrieve all questions with <SearchTerm> in their QuestionText (without answers)
+  - api/Search/<SearchTerm> - retrieve all questions with <SearchTerm> in their QuestionText (without answers)
+    Question
+    --------
+    public int Id { get; set; }
+    public string QuestionTitle { get; set; }
+    public string QuestionText { get; set; }
+    public int VoteValue { get; set; } = 0;
+    public DateTime CreatedDateTime { get; set; } = DateTime.UtcNow;
+    public DateTime LastModifiedDateTime { get; set; } = DateTime.UtcNow;
+
+    public List<Answer> Answers { get; set; } = new List<Answer>();
+
+    Answer
+    ------
+    public int Id { get; set; }
+    public int QuestionId { get; set; }
+    public string AnswerText { get; set; }
+    public int VoteValue { get; set; } = 0;
+    public DateTime CreatedDateTime { get; set; } = DateTime.UtcNow;
+    public DateTime LastModifiedDateTime { get; set; } = DateTime.UtcNow;
