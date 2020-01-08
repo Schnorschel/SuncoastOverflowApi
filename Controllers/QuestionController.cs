@@ -17,7 +17,7 @@ namespace SuncoastOverflowApi.Controllers
     {
       var db = new DatabaseContext();
       // return Ok(db.Questions.Include(q => q.Answers).OrderByDescending(q => q.LastModifiedDateTime));
-      return Ok(db.Questions.OrderByDescending(q => q.LastModifiedDateTime));
+      return Ok(db.Questions.Include(q => q.Answers).OrderByDescending(q => q.LastModifiedDateTime));
     }
 
     [HttpGet("{id}")]
@@ -35,30 +35,69 @@ namespace SuncoastOverflowApi.Controllers
       }
     }
 
+    // [HttpPost]
+    // public ActionResult CreateQuestion(Question question)
+    // {
+    //   var db = new DatabaseContext();
+    //   question.Id = 0;
+    //   db.Questions.Add(question);
+    //   db.SaveChanges();
+    //   return Ok(question);
+    // }
+
     [HttpPost]
-    public ActionResult CreateQuestion(Question question)
+    public ActionResult CreateQuestion(NewQuestion newQuestion)
     {
       var db = new DatabaseContext();
-      question.Id = 0;
+      var question = new Question
+      {
+        QuestionTitle = newQuestion.QuestionTitle,
+        QuestionText = newQuestion.QuestionText,
+        VoteValue = newQuestion.VoteValue
+      };
       db.Questions.Add(question);
       db.SaveChanges();
       return Ok(question);
     }
 
+    // [HttpPut("{id}")]
+    // public ActionResult UpdateQuestion(Question question)
+    // {
+    //   var db = new DatabaseContext();
+    //   var prevQuestion = db.Questions.FirstOrDefault(q => q.Id == question.Id);
+    //   if (prevQuestion == null)
+    //   {
+    //     return NotFound();
+    //   }
+    //   else
+    //   {
+    //     prevQuestion.QuestionTitle = question.QuestionTitle;
+    //     prevQuestion.QuestionText = question.QuestionText;
+    //     prevQuestion.VoteValue = question.VoteValue;
+    //     prevQuestion.LastModifiedDateTime = DateTime.UtcNow;
+    //     db.SaveChanges();
+    //     return Ok(prevQuestion);
+    //   }
+    // }
+
     [HttpPut("{id}")]
-    public ActionResult UpdateQuestion(Question question)
+    public ActionResult UpdateQuestion(int id, UpdateQuestion updateQuestion)
     {
       var db = new DatabaseContext();
-      var prevQuestion = db.Questions.FirstOrDefault(q => q.Id == question.Id);
+      var prevQuestion = db.Questions.FirstOrDefault(q => q.Id == updateQuestion.Id);
       if (prevQuestion == null)
       {
         return NotFound();
       }
+      else if (updateQuestion.Id != id)
+      {
+        return BadRequest(new { error = $"Endpoint Id ({id}) and object Id ({updateQuestion.Id}) differ." });
+      }
       else
       {
-        prevQuestion.QuestionTitle = question.QuestionTitle;
-        prevQuestion.QuestionText = question.QuestionText;
-        prevQuestion.VoteValue = question.VoteValue;
+        prevQuestion.QuestionTitle = updateQuestion.QuestionTitle;
+        prevQuestion.QuestionText = updateQuestion.QuestionText;
+        prevQuestion.VoteValue = updateQuestion.VoteValue;
         prevQuestion.LastModifiedDateTime = DateTime.UtcNow;
         db.SaveChanges();
         return Ok(prevQuestion);
