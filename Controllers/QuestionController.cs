@@ -16,6 +16,7 @@ namespace SuncoastOverflowApi.Controllers
     public ActionResult GetAllQuestions()
     {
       var db = new DatabaseContext();
+      // return Ok(db.Questions.Include(q => q.Answers).OrderByDescending(q => q.LastModifiedDateTime));
       return Ok(db.Questions.OrderByDescending(q => q.LastModifiedDateTime));
     }
 
