@@ -37,12 +37,17 @@ namespace SuncoastOverflowApi.Controllers
       //                      select q); //.Distinct();
 
 
+      // var searchResults = (from q in db.Questions.Include(i => i.Answers)
+      //                      where q.QuestionTitle.ToLower().Contains(searchFor.ToLower()) ||
+      //                            q.QuestionText.ToLower().Contains(searchFor.ToLower()) ||
+      //                            q.Answers.Any(a => a.AnswerText.ToLower().Contains(searchFor.ToLower()))
+      //                      select new { Title = q.QuestionTitle, Id = q.Id, NumberOfAnswers = q.Answers.Count }); //.Distinct();
+
       var searchResults = (from q in db.Questions.Include(i => i.Answers)
                            where q.QuestionTitle.ToLower().Contains(searchFor.ToLower()) ||
                                  q.QuestionText.ToLower().Contains(searchFor.ToLower()) ||
                                  q.Answers.Any(a => a.AnswerText.ToLower().Contains(searchFor.ToLower()))
-                           select new { Title = q.QuestionTitle, Id = q.Id, NumberOfAnswers = q.Answers.Count }); //.Distinct();
-
+                           select q); //.Distinct();
 
 
       return Ok(searchResults);
