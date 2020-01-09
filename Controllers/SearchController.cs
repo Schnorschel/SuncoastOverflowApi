@@ -29,12 +29,20 @@ namespace SuncoastOverflowApi.Controllers
       //                            a.AnswerText.ToLower().Contains(searchFor.ToLower())
       //                      select q).Distinct().Include(q => q.Answers);
 
-      var searchResults = (from q in db.Questions
-                           join a in db.Answers on q.Id equals a.QuestionId
+      // var searchResults = (from q in db.Questions
+      //                      join a in db.Answers on q.Id equals a.QuestionId
+      //                      where q.QuestionTitle.ToLower().Contains(searchFor.ToLower()) ||
+      //                            q.QuestionText.ToLower().Contains(searchFor.ToLower()) ||
+      //                            a.AnswerText.ToLower().Contains(searchFor.ToLower())
+      //                      select q); //.Distinct();
+
+
+      var searchResults = (from q in db.Questions.Include(i => i.Answers)
                            where q.QuestionTitle.ToLower().Contains(searchFor.ToLower()) ||
                                  q.QuestionText.ToLower().Contains(searchFor.ToLower()) ||
-                                 a.AnswerText.ToLower().Contains(searchFor.ToLower())
-                           select q).Distinct();
+                                 q.Answers.Any(a => a.AnswerText.ToLower().Contains(searchFor.ToLower()))
+                           select new { Title = q.QuestionTitle, Id = q.Id, NumberOfAnswers = q.Answers.Count }); //.Distinct();
+
 
 
       return Ok(searchResults);
