@@ -34,7 +34,7 @@ namespace SuncoastOverflowApi.Controllers
                            where q.QuestionTitle.ToLower().Contains(searchFor.ToLower()) ||
                                  q.QuestionText.ToLower().Contains(searchFor.ToLower()) ||
                                  a.AnswerText.ToLower().Contains(searchFor.ToLower())
-                           select q).Distinct();
+                           select q).Distinct(); //why do we need to put distinct to prevent duplicate results ?
 
 
       return Ok(searchResults);
