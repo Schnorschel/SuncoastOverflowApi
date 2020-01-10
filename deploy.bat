@@ -1,7 +1,7 @@
-docker build -t suncoast-overflow-image .
+docker build -t suncoast-overflow-oehl-image .
 
-docker tag suncoast-overflow-image registry.heroku.com/suncoast-overflow/web
+docker tag suncoast-overflow-oehl-image registry.heroku.com/suncoast-overflow-oehl/web
 
-docker push registry.heroku.com/suncoast-overflow/web
+docker push registry.heroku.com/suncoast-overflow-oehl/web
 
-heroku container:release web -a suncoast-overflow
+heroku container:release web -a suncoast-overflow-oehl
